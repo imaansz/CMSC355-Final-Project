@@ -1,5 +1,5 @@
 Who Submitted the Project in the Submit Server - 
-Group Members - Ashlyn Jameson, Imaan Saadat-Zia
+Group Members - Ashlyn Jameson (jamesona), Imaan Saadat-Zia (ims44)
 App Description - One or two line description.
 YouTube Video Demo Link - Link to a YouTube video that provides a demo of your application. This video is very important. We will not grade a project unless a YouTube video is provided. The video does not need to have audio (narration).
 APIs Information - Names and link to API(s) used by your application.
