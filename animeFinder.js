@@ -43,6 +43,12 @@ app.get("/userLookupForm", (request, response) => {
     response.render("userLookupForm");
 });
 
+app.post("seachByTitle", (request, response) => {
+    let name = request.body.name;
+    let title = request.body.title;
+    
+
+});
 
 process.stdin.on('data', (data) => {
     const input = data.toString().trim();
