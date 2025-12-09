@@ -1,0 +1,44 @@
+const express = require("express");
+const portNumber = process.argv[2];
+const fs = require('fs');
+const path = require("path");
+const app = express();
+const bodyParser = require("body-parser");
+
+app.set("view engine", "ejs");
+app.set("views", path.resolve(__dirname, "templates"));
+app.use(bodyParser.urlencoded({extended:false}));
+
+const server = app.listen(portNumber, () => {
+    console.log(`Web server started and running at http://localhost:${portNumber}`);
+    console.log("Type stop to shutdown the server: ");
+});
+
+// This endpoint renders the main page of the application and it will display the contents of the index.ejs template file.
+app.get("/", (request, response) => { 
+    response.render("index");
+}); 
+
+app.get("/recommendationForm", (request, response) => { 
+    response.render("recommendationForm");
+}); 
+
+app.get("/searchByTitle", (request, response) => { 
+    response.render("searchByTitle");
+});
+
+app.get("/userLookupForm", (request, response) => { 
+    response.render("userLookupForm");
+});
+
+
+process.stdin.on('data', (data) => {
+    const input = data.toString().trim();
+    if (input === 'stop') {
+        console.log('Shutting down the server');
+        server.close();
+        process.exit(0);
+    } else {
+        console.log(`Invalid command: ${input}`);
+    }
+});
