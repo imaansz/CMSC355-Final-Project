@@ -8,7 +8,13 @@
 <!-- will return previous results given to specified user -->
 <body>
     <h2>User Lookup Form</h2>
-
+		<form action= <%- port %> method="post">
+			<fieldset id="lookupForm">
+				<label>Name: <input type="text" name="name"/></label>
+				<input type="reset" />
+				<input type="submit" />
+			</fieldset>
+		</form>
 </body>
 
 </html>

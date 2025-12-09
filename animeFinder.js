@@ -9,6 +9,10 @@ app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "templates"));
 app.use(bodyParser.urlencoded({extended:false}));
 
+require("dotenv").config({
+   path: path.resolve(__dirname, "credentialsDontPost/.env"),
+});
+
 const server = app.listen(portNumber, () => {
     console.log(`Web server started and running at http://localhost:${portNumber}`);
     console.log("Type stop to shutdown the server: ");
