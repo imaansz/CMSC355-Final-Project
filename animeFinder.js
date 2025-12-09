@@ -1,5 +1,5 @@
 const express = require("express");
-const portNumber = process.argv[2];
+const portNumber = 5000;
 const fs = require('fs');
 const path = require("path");
 const app = express();
