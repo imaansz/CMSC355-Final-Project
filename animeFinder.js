@@ -27,6 +27,14 @@ app.get("/recommendationForm", (request, response) => {
     response.render("recommendationForm");
 }); 
 
+app.post("/processRecommendationForm", async (request, response) => {
+    const variables = {
+        genre: request.body?.genre ?? "NONE",
+    }
+
+    response.render("processApplication", variables);
+});
+
 app.get("/searchByTitle", (request, response) => { 
     response.render("searchByTitle");
 });

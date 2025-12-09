@@ -10,9 +10,17 @@
 <!-- will find all results that fit the filters -->
 <body>
     <h2>Recommender</h2>
-	<fieldset>
-		
-	</fieldset>
+	<form action= "/recommendationForm" method="post">
+		<fieldset>
+			Genre: <select name="genre">
+				<option value="fantasy">fantasy</option>
+				<option value="action" selected>action</option>
+				<option value="adventure">adventure</option>
+			</select>
+		</fieldset>
+		<input type="reset" />
+		<input type="submit" />
+	</form>
 </body>
 
 </html>
