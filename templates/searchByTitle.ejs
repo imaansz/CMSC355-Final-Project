@@ -5,12 +5,19 @@
 	<meta charset="utf-8" />
 	<title>Search By Title</title>
 	<link rel="stylesheet" href="style.css" title="style">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Delius">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Delius">
 </head>
 <!-- will find all results with the same name -->
 <body>
     <h2>Search By Title</h2>
-
+	<form action="/searchByTitle" method="post">
+		<fieldset id="titleForm">
+			<label>Name: <input type="text" id="name" name="name"/></label>
+			<label>Title: <input type="text" id="title" name="title"/></label>
+			<input type="reset" />
+			<input type="submit" />
+		</fieldset>
+	</form>
 </body>
 
 </html>
