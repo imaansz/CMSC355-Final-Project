@@ -70,7 +70,7 @@ app.post("/searchByTitle", (request, response) => {
             console.log("** Data Retrieved\n");
             returnTitle = data[0].attributes.canonicalTitle;
         }
-
+        console.log(returnTitle);
         let variables = {titles : returnTitle};
         response.render("listedTitles", variables);
     
