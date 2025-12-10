@@ -46,11 +46,12 @@ app.get("/userLookupForm", (request, response) => {
     response.render("userLookupForm");
 });
 
-app.post("/searchByTitle", (request, response) => {
+app.post("/listedTitles", (request, response) => {
     let name = request.body.name;
     let title = request.body.title;
     let encodedTitle = title.replace(/ /g, '%20');
     let returnTitle;
+    let description;
     console.log(encodedTitle);
     fetch(`https://kitsu.io/api/edge/anime?filter[text]=${encodedTitle}`, {
             method: 'GET',
@@ -69,10 +70,15 @@ app.post("/searchByTitle", (request, response) => {
         function processObject({data, links, meta}) { 
             console.log("** Data Retrieved\n");
             returnTitle = data[0].attributes.canonicalTitle;
+            description = data[0].attributes.description;
+            let variables = {
+                titles : returnTitle,
+                description : description};
+            response.render("listedTitles", variables);
         }
-        console.log(returnTitle);
-        let variables = {titles : returnTitle};
-        response.render("listedTitles", variables);
+        
+        
+        
     
 });
 
