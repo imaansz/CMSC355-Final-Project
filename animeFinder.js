@@ -11,6 +11,9 @@ app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "templates"));
 app.use(bodyParser.urlencoded({extended:false}));
 
+const mongoose = require("mongoose");
+const Person = require("./model/Person.js");
+
 require("dotenv").config({
    path: path.resolve(__dirname, "credentialsDontPost/.env"),
 });
@@ -74,12 +77,22 @@ app.post("/listedTitles", (request, response) => {
             let variables = {
                 titles : returnTitle,
                 description : description};
+            
             response.render("listedTitles", variables);
         }
         
-        
-        
-    
+        async function addPerson(name, title) {
+            try {
+                await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
+                await Person.create({
+                   name: name,
+                   anime: title
+                });
+                mongoose.disconnect();
+             } catch (err) {
+                console.error(err);
+             }
+        }
 });
 
 process.stdin.on('data', (data) => {
