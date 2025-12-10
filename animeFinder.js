@@ -32,9 +32,10 @@ app.get("/recommendationForm", (request, response) => {
 app.post("/processRecommendationForm", async (request, response) => {
     const variables = {
         genre: request.body?.genre ?? "NONE",
+        anime: ""//ADD API HERE
     }
 
-    response.render("processApplication", variables);
+    response.render("processRecommendationForm", variables);
 });
 
 app.get("/searchByTitle", (request, response) => { 
@@ -45,11 +46,13 @@ app.get("/userLookupForm", (request, response) => {
     response.render("userLookupForm");
 });
 
-app.post("seachByTitle", (request, response) => {
-    let name = request.body.name;
-    let title = request.body.title;
+app.post("/processSeachByTitle", (request, response) => {
+    const variables = {
+        name: request.body.name,
+        title: request.body.title
+    }
     
-
+    response.render("processRecommendationForm", variables);
 });
 
 process.stdin.on('data', (data) => {
