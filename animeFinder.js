@@ -51,6 +51,7 @@ app.post("/searchByTitle", (request, response) => {
     let title = request.body.title;
     let encodedTitle = title.replace(/ /g, '%20');
     let returnTitle;
+    console.log(encodedTitle);
     fetch(`https://kitsu.io/api/edge/anime?filter[text]=${encodedTitle}`, {
             method: 'GET',
             headers: {
