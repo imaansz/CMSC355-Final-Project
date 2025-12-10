@@ -32,9 +32,10 @@ app.get("/recommendationForm", (request, response) => {
 app.post("/processRecommendationForm", async (request, response) => {
     const variables = {
         genre: request.body?.genre ?? "NONE",
+        anime: ""//ADD API HERE
     }
 
-    response.render("processApplication", variables);
+    response.render("processRecommendationForm", variables);
 });
 
 app.get("/searchByTitle", (request, response) => { 
