@@ -46,13 +46,33 @@ app.get("/userLookupForm", (request, response) => {
     response.render("userLookupForm");
 });
 
-app.post("/processSeachByTitle", (request, response) => {
-    const variables = {
-        name: request.body.name,
-        title: request.body.title
-    }
+app.post("/searchByTitle", (request, response) => {
+    let name = request.body.name;
+    let title = request.body.title;
+    let encodedTitle = title.replace(/ /g, '%20');
+    let returnTitle;
+    fetch(`https://kitsu.io/api/edge/anime?filter[text]=${title}`, {
+            method: 'GET',
+            headers: {
+               'Accept': 'application/vnd.api+json',
+               'Content-Type': 'application/vnd.api+json'
+            }
+         })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            processObject(data);
+         })
+        .catch(error => console.error(error));
+        
+        function processObject({data, links, meta}) { 
+            console.log("** Data Retrieved\n");
+            returnTitle = data[0].attributes.canonicalTitle;
+        }
+
+        let variables = {titles : returnTitle};
+        response.render("listedTitles", variables);
     
-    response.render("processRecommendationForm", variables);
 });
 
 process.stdin.on('data', (data) => {
