@@ -77,7 +77,7 @@ app.post("/listedTitles", (request, response) => {
             let variables = {
                 titles : returnTitle,
                 description : description};
-            
+            addPerson(name, returnTitle);
             response.render("listedTitles", variables);
         }
         
