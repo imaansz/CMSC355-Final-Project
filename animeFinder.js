@@ -79,7 +79,7 @@ app.post("/userLookupPost", async (request, response) => {
         const people = await Person.find({ name: `${userName}` }); //find all the people with matching names
         let animeList = ""
         for (const entry of people) {
-            animeList += `<strong>Anime: </strong>${entry.anime}  <strong>Rank: </strong> ${entry.rank}<br>`;
+            animeList += `<strong>Anime: </strong>${entry.anime}       <strong>Rank: </strong> ${entry.rank}<br>`;
         }
         let variables = {
             user: userName,
