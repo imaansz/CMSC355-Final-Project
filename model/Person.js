@@ -8,6 +8,10 @@ const personSchema = new mongoose.Schema({
    anime: {
       type: String,
       required: true,
+   },
+   rank: {
+      type: Number,
+      required: true,
    }
 });
 

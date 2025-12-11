@@ -79,13 +79,13 @@ app.post("/userLookupPost", async (request, response) => {
         const people = await Person.find({ name: `${userName}` }); //find all the people with matching names
         let animeList = ""
         for (const entry of people) {
-            animeList += `${entry.anime} <br>`;
+            animeList += `<strong>Anime: </strong>${entry.anime} <br> <strong>Rank: </strong> ${entry.rank}`;
         }
         let variables = {
             user: userName,
             animes: animeList
         };
-        //mongoose.disconnect();
+        mongoose.disconnect();
         response.render("userLookupPost", variables);
     } catch (err) {
         console.error(err);
@@ -99,6 +99,7 @@ app.get("/searchByTitle", (request, response) => {
 app.post("/listedTitles", (request, response) => {
     let name = request.body.name;
     let title = request.body.title;
+    let givenRank = request.body.rank;
     let encodedTitle = title.replace(/ /g, '%20');
     let returnTitle;
     let description;
@@ -123,17 +124,20 @@ app.post("/listedTitles", (request, response) => {
             description = data[0].attributes.description;
             let variables = {
                 titles : returnTitle,
-                description : description};
-            addPerson(name, returnTitle);
+                description : description,
+                rank: givenRank
+            };
+            addPerson(name, returnTitle, givenRank);
             response.render("listedTitles", variables);
         }
         
-        async function addPerson(name, title) {
+        async function addPerson(name, title, rank) {
             try {
                 await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
                 await Person.create({
                    name: name,
-                   anime: title
+                   anime: title,
+                   rank: rank
                 });
                 mongoose.disconnect();
              } catch (err) {
