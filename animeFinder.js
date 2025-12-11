@@ -84,6 +84,7 @@ app.post("/userLookupPost", async (request, response) => {
             user: userName,
             animes: animeList
         };
+        mongoose.disconnect();
         response.render("userLookupPost", variables);
     } catch (err) {
         console.error(err);
@@ -139,6 +140,22 @@ app.post("/listedTitles", (request, response) => {
              }
         }
 });
+
+app.get("/clearData", (request, response) => { 
+    response.render("clearData");
+});
+
+app.post("/clearDataPost", async (request, response) => { 
+    try {
+        await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
+        await People.deleteMany({});
+        mongoose.disconnect();
+        response.render("clearDataPost");
+    } catch (err) {
+        console.error(err);
+    }
+});
+
 
 process.stdin.on('data', (data) => {
     const input = data.toString().trim();
