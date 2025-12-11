@@ -78,7 +78,7 @@ app.post("/userLookupPost", async (request, response) => {
         const people = await Person.find({ name: `${userName}` }).select('anime'); //find all the people with matching names
         let animeList = "";//`${people}`;
         for (entry in people) {
-            animeList += `${entry.anime}<br>`
+            animeList += `${entry}<br>`
         }
         let variables = {
             user: userName,
