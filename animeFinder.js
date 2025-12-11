@@ -148,7 +148,7 @@ app.get("/clearData", (request, response) => {
 app.post("/clearDataPost", async (request, response) => { 
     try {
         await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
-        await People.deleteMany({});
+        await Person.deleteMany({});
         mongoose.disconnect();
         response.render("clearDataPost");
     } catch (err) {
