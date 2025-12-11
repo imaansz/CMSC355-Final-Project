@@ -7,7 +7,6 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const Person = require("./model/Person.js");
 
-//https://cmsc355-final-project.onrender.com/
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "templates"));
@@ -77,34 +76,42 @@ app.post("/userLookupPost", async (request, response) => {
     try {
         await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
         const people = await Person.find({ name: `${userName}` }); //find all the people with matching names
-        let animeList = `
-        <style>
-        table, td, th {
-            border: 1px solid gray
+        if (people.length === 0) {
+            let variables = {
+                user: userName,
+                animes: "No animes ranked yet"
+            }
+            mongoose.disconnect();
+            response.render("userLookupPost", variables);
+        } else {
+            let animeList = `
+            <style>
+            table, td, th {
+                border: 1px solid gray
+            }
+            </style>
+            <table> 
+                <thead> 
+                    <tr> 
+                        <th>Anime</th> 
+                        <th>Rank</th> 
+                    </tr> 
+                </thead> 
+                <tbody>`;
+            for (const entry of people) {
+                animeList += `<tr><td>${entry.anime}</td>`;
+                animeList += `<td>${entry.rank}</td></tr>`;
+            }
+            animeList += `
+                </tbody> 
+            </table>`;
+            let variables = {
+                user: userName,
+                animes: animeList
+            };
+            mongoose.disconnect();
+            response.render("userLookupPost", variables);
         }
-        </style>
-        <table> 
-            <thead> 
-                <tr> 
-                    <th>Anime</th> 
-                    <th>Rank</th> 
-                </tr> 
-            </thead> 
-            <tbody>`;
-        for (const entry of people) {
-           // <tr><td>${applicant.name}</td>`
-            animeList += `<tr><td>${entry.anime}</td>`;
-            animeList += `<td>${entry.rank}</td></tr>`;
-        }
-        animeList += `
-            </tbody> 
-        </table>`;
-        let variables = {
-            user: userName,
-            animes: animeList
-        };
-        mongoose.disconnect();
-        response.render("userLookupPost", variables);
     } catch (err) {
         console.error(err);
     }
