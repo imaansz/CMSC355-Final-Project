@@ -12,8 +12,7 @@ const Person = require("./model/Person.js");
 app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "templates"));
 app.use(bodyParser.urlencoded({extended:false}));
-
-
+app.use(express.static(path.join(__dirname, 'templates')));
 
 
 require("dotenv").config({
@@ -29,6 +28,8 @@ const server = app.listen(portNumber, () => {
 app.get("/", (request, response) => { 
     response.render("index");
 }); 
+
+
 
 app.get("/recommendationForm", (request, response) => { 
     response.render("recommendationForm");
