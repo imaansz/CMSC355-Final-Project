@@ -77,10 +77,28 @@ app.post("/userLookupPost", async (request, response) => {
     try {
         await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
         const people = await Person.find({ name: `${userName}` }); //find all the people with matching names
-        let animeList = ""
-        for (const entry of people) {
-            animeList += `<strong>Anime: </strong>${entry.anime}       <strong>Rank: </strong> ${entry.rank}<br>`;
+        let animeList = `
+        <style>
+        table, td, th {
+            border: 1px solid gray
         }
+        </style>
+        <table> 
+            <thead> 
+                <tr> 
+                    <th>Anime</th> 
+                    <th>Rank</th> 
+                </tr> 
+            </thead> 
+            <tbody>`;
+        for (const entry of people) {
+           // <tr><td>${applicant.name}</td>`
+            animeList += `<tr><td>${entry.anime}</td>`;
+            animeList += `<td>${entry.rank}</td></tr>`;
+        }
+        animeList += `
+            </tbody> 
+        </table>`;
         let variables = {
             user: userName,
             animes: animeList
