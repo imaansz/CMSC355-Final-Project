@@ -84,7 +84,7 @@ app.post("/userLookupPost", async (request, response) => {
             user: userName,
             animes: animeList
         };
-        mongoose.disconnect();
+        //mongoose.disconnect();
         response.render("userLookupPost", variables);
     } catch (err) {
         console.error(err);
