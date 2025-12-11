@@ -3,20 +3,16 @@
 
 <head>
 	<meta charset="utf-8" />
-	<title>User Lookup Form</title>
+	<title>User Lookup Results</title>
     <link rel="stylesheet" href="style.css" title="style">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Delius">
 </head>
 <!-- will return previous results given to specified user -->
 <body>
-    <h2>User Lookup Form</h2>
-		<form action="/userLookupPost" method="post">
-			<fieldset id="lookupForm">
-				<label>Name: <input type="text" id="name" name="name"/></label>
-				<input type="reset" />
-				<input type="submit" />
-			</fieldset>
-		</form>
+	<div>
+		<h1>Animes for: <%- user %></h1>
+		<%- animes %>
+	</div>
+	<a href="/">HOME</a>
 </body>
-
 </html>
